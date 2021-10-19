@@ -1,0 +1,58 @@
+#################################
+#		Aula 1 - Instalação		#
+#################################
+
+Software de gestão de versões:
+- Git
+- Cmder
+https://gist.github.com/leocomelli/2545add34e4fec21ec16
+
+#################################
+#		Aula 2 - Equipamentos	#
+#################################
+
+Equipamento: 1
+Modelo: HP A5500
+
+___________________________________
+Procedimentos de ligar:
+1. Conectar o cabo consola com a conecção RJ45 (Rede) à porta consola do switch
+2. Conectar o cabo consola com a conecção DB-9 (USB) à porta USB do PC
+6. Ligar o switch com as devidas verificações:
+• The power cord is properly connected.
+• The input power voltage meets the requirement of the switch.
+• The console cable is properly connected, the terminal or PC used for configuration has started, and the configuration parameters have been correctly set. 
+3. Verificar no Device Manager qual a porta COM
+4. Abrir o Putty e configurar com as seguintes especificações:
+• Bits per second—9,600
+• Data bits—8
+• Parity—None
+• Stop bits—1
+• Flow control—None
+• Emulation—VT100 
+5. Definir a porta serial |Serial Line| (Ex. COM1)
+7. Ctrl + B
+
+#################################
+#		Aula 2 - Comandos		#
+#################################
+
+<Sysname> system-view -> 										| Configure terminal do cisco
+[Sysname] interface <interface> 								| Modo interface
+[Sysname-interface] ip address <ip> <mask>						| Define um ip na interface
+[Sysname-interface] quit										| Sair do modo interface
+[Sysname] local-user <string> 									| Define o user
+[Sysname-luser-"string"] authorization-atrribute level <1-3> 	| Define o nivel do user
+[Sysname-luser-"string"] password <Simple/Cipher> <password>	| Define a password do user
+[Sysname-luser-"string"] service-type <telnet/ssh/etc>			| Tipo de serviço
+
+- Reset Configurações
+reset saved-configuration
+- Setup
+	> IP Management
+	> Password/Username
+	> HTTP/TELNET/SSH Access
+	> Backup Config
+	> Restore Config
+
+
