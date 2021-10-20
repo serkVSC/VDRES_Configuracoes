@@ -54,5 +54,6 @@ reset saved-configuration
 	> HTTP/TELNET/SSH Access
 	> Backup Config
 	> Restore Config
+	save
 
 
