@@ -55,10 +55,8 @@ reset saved-configuration
 	> Backup Config
 	> Restore Config
 	save
-<<<<<<< Updated upstream
-=======
 	save2
 	save3
->>>>>>> Stashed changes
+
 
 
