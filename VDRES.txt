@@ -13,7 +13,8 @@ https://gist.github.com/leocomelli/2545add34e4fec21ec16
 
 Equipamento: 1
 Modelo: HP A5500
-
+Adaptador: UC232A
+Rede: 192.168.1.x/24
 ___________________________________
 Procedimentos de ligar:
 1. Conectar o cabo consola com a conecção RJ45 (Rede) à porta consola do switch
@@ -37,7 +38,7 @@ Procedimentos de ligar:
 #		Aula 2 - Comandos		#
 #################################
 
-<Sysname> system-view -> 										| Configure terminal do cisco
+<Sysname> system-view	 										| Configure terminal do cisco
 [Sysname] interface <interface> 								| Modo interface
 [Sysname-interface] ip address <ip> <mask>						| Define um ip na interface
 [Sysname-interface] quit										| Sair do modo interface
@@ -56,3 +57,46 @@ reset saved-configuration
 	> Restore Config
 
 
+#################################
+#		Aula 3 - Iniciacao		#
+#################################
+
+- Básicos
+	display current-configuration
+	display saved-configuration
+- Reset Configurações
+	reset saved-configuration
+	reboot
+- Setup
+	> IP Management
+		interface vlan 1
+			ip address 192.168.1.200 255.255.255.0
+	> Password/Username
+		system-view
+			local-user <serk>
+				password cipher <vsc>
+				q
+	> HTTP/TELNET/SSH Access
+		telnet server enable
+			user-interface vty 0 5
+			authentication-mode password
+			set authentication password cipher <vsc>
+		ip http enable
+			ip http port <port>
+	> Backup Config
+		save
+		backup fabric current-configuration to x.x.x.x backup.cfg
+	> Restore Config
+		restore fabr startup-configuration from x.x.x.x
+	> Backup by TFTP
+		startup saved-configuration filename.cfg
+		backup startup-configuration to IP filename.cfg
+		
+#################################
+#		Aula 4 - 2SW conf		#
+#################################
+
+- VLAN
+- LACP
+- SCP
+- IRF
