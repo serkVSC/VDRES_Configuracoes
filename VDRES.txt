@@ -102,3 +102,20 @@ reset saved-configuration
 - LACP
 - SCP
 - IRF
+
+#################################
+#		Aula 5 - 3SW conf		#
+#################################
+
+	> Mostrar configuração	
+		show running-conf
+	> Entrar no modo configuração
+		conf t
+	> Reset configuração
+		erase startup-config
+	> Configurar um VLAN
+		vlan ID
+	> IP address
+		ip address 192.168.1.100 255.255.255.0
+	> Configure manager and operartoor password
+		password manager user-name admin <plaintext|sha1> admin
