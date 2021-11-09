@@ -46,6 +46,7 @@ Procedimentos de ligar:
 [Sysname-luser-"string"] authorization-atrribute level <1-3> 	| Define o nivel do user
 [Sysname-luser-"string"] password <Simple/Cipher> <password>	| Define a password do user
 [Sysname-luser-"string"] service-type <telnet/ssh/etc>			| Tipo de serviço
+[Everywhere] undo command										| O "no ip" no cisco
 
 - Reset Configurações
 reset saved-configuration
@@ -64,6 +65,7 @@ reset saved-configuration
 - Básicos
 	display current-configuration
 	display saved-configuration
+	undo (no) ip address....
 - Reset Configurações
 	reset saved-configuration
 	reboot
