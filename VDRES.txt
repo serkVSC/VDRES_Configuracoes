@@ -119,3 +119,122 @@ reset saved-configuration
 		ip address 192.168.1.100 255.255.255.0
 	> Configure manager and operartoor password
 		password manager user-name admin <plaintext|sha1> admin
+		
+#################################
+#		Aula 6 - Topology conf	#
+#################################
+
+Switch1:
+Interface XGE1/1/1 UP
+
+
+Switch2:
+Interface XGE2/1/1 UP
+
+***** Rack4sw1 IRF configuration *****
+
+--- Configure and activate IRF interfaces ---
+
+[Rack4sw1]interface Ten-GigabitEthernet 1/1/1
+[Rack4sw1-Ten-GigabitEthernet1/1/1]shutdown
+[Rack4sw1-Ten-GigabitEthernet1/1/1]quit
+
+[Rack4sw1]irf-port 1/1
+[Rack4sw1-irf-port1/1]port group interface Ten-GigabitEthernet 1/1/1
+Info: You are recommended to save the configuration after completing your IRF configuration; otherwise, it may be lost after system reboot.
+[Rack4sw1-irf-port1/1]quit
+
+[Rack4sw1]interface Ten-GigabitEthernet 1/1/1
+[Rack4sw1-Ten-GigabitEthernet1/1/1]undo shut
+[Rack4sw1-Ten-GigabitEthernet1/1/1]quit
+
+[Rack4sw1]irf-port-configuration active
+
+[Rack4sw1]save force
+Validating file. Please wait.....................
+Saved the current configuration to mainboard device successfully.
+Configuration is saved to device successfully.
+
+
+***** Rack4sw2 IRF configuration *****
+
+--- Renumber switch ---
+
+[Rack4sw2]irf member 1 renumber 2
+Warning: Renumbering the switch number may result in configuration change or loss. Continue?[Y/N]y
+
+[Rack4sw2]save force
+Validating file. Please wait.....................
+Saved the current configuration to mainboard device successfully.
+Configuration is saved to device successfully.
+
+<Rack4sw2>reboot
+Start to check configuration with next startup configuration file, please wait.........DONE!
+This command will reboot the device. Continue? [Y/N]:y
+
+--- Switch reboots ---
+
+--- Configure and activate IRF interfaces ---
+
+[Rack4sw2]interface Ten-GigabitEthernet 2/1/1
+[Rack4sw2-Ten-GigabitEthernet2/1/1]shutdown
+[Rack4sw2-Ten-GigabitEthernet2/1/1]quit
+
+[Rack4sw2]irf-port 2/2
+[Rack4sw2-irf-port2/2]port group interface Ten-GigabitEthernet 2/1/1
+Info: You are recommended to save the configuration after completing your IRF configuration; otherwise, it may be lost after system reboot.
+[Rack4sw2-irf-port2/2]quit
+
+[Rack4sw2]interface Ten-GigabitEthernet 2/1/1
+[Rack4sw2-Ten-GigabitEthernet2/1/1]undo shutdown
+[Rack4sw2-Ten-GigabitEthernet2/1/1]quit
+
+[Rack4sw2]save 
+
+[Rack4sw2]irf-port-configuration active
+
+--- Rack4sw2 reboot automatically ----
+
+****** IRF verification *****
+
+<Rack4sw1>display irf
+
+Switch Role Priority CPU-Mac Description
+*+1 Master 1 b8af-67e0-d289 -----
+2 Slave 1 b8af-67e1-1309 -----
+--------------------------------------------------
+
+* indicates the device is the master.
++ indicates the device through which the user logs in.
+
+The Bridge MAC of the IRF is: b8af-67e0-d276
+Auto upgrade : yes
+Mac persistent : 6 min
+Domain ID : 0
+
+<Rack4sw1>display irf configuration
+
+MemberID NewID IRF-Port1 IRF-Port2
+1 1 Ten-GigabitEthernet1/1/1 disable
+2 2 disable Ten-GigabitEthernet2/1/1
+
+<Rack4sw1>display irf topology
+Topology Info
+-------------------------------------------------------------------------
+IRF-Port1 IRF-Port2
+Switch Link neighbor Link neighbor Belong To
+2 DIS -- UP 1 b8af-67e0-d289
+1 UP 2 DIS -- b8af-67e0-d289
+
+<Rack4sw1>display device
+
+Slot 1
+SubSNo PortNum PCBVer FPGAVer CPLDVer BootRomVer AddrLM Type State
+0 28 REV.C NULL 002 707 IVL MAIN Normal
+1 2 REV.A NULL NULL NULL IVL 2*10GE Normal
+Slot 2
+SubSNo PortNum PCBVer FPGAVer CPLDVer BootRomVer AddrLM Type State
+0 28 REV.C NULL 002 707 IVL MAIN Normal
+1 2 REV.A NULL NULL NULL IVL 2*10GE Normal
+
+<Rack4sw1>display interface brief
